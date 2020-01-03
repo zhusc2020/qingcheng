@@ -1,18 +1,26 @@
 package com.zsc.qc.controller;
 
-import org.springframework.stereotype.Controller;
+import com.zsc.qc.entity.User;
+import com.zsc.qc.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.List;
+
+
+@RestController
 @RequestMapping("api/user")
 public class UserController {
 
-
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/getUser")
-    public void getUser(){
-        System.out.print("11111111122222222");
+    public List<User> getUser(){
+        System.out.print("");
+        return userService.getUser();
     }
 
 

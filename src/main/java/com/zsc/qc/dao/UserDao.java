@@ -1,4 +1,15 @@
 package com.zsc.qc.dao;
 
-public class UserDao {
+import com.zsc.qc.entity.User;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface UserDao {
+
+
+    List<User> getUser();
+
+
 }
