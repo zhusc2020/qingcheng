@@ -2,7 +2,7 @@ package com.zsc.qc.controller;
 
 import com.zsc.qc.entity.User;
 import com.zsc.qc.service.UserService;
-import com.zsc.qc.utils.exceptionutils.CustomizeException;
+import com.zsc.qc.utils.CustomizeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

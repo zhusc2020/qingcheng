@@ -1,4 +1,4 @@
-package com.zsc.qc.utils.exceptionutils;
+package com.zsc.qc.utils;
 
 import com.zsc.qc.constant.SystemEnum;
 

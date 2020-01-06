@@ -2,7 +2,7 @@ package com.zsc.qc.config;
 
 import com.zsc.qc.constant.SystemEnum;
 import com.zsc.qc.utils.Result;
-import com.zsc.qc.utils.exceptionutils.CustomizeException;
+import com.zsc.qc.utils.CustomizeException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
