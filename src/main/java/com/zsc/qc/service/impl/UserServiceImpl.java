@@ -1,6 +1,6 @@
 package com.zsc.qc.service.impl;
 
-import com.zsc.qc.dao.UserDao;
+import com.zsc.qc.dao.UserMapper;
 import com.zsc.qc.entity.User;
 import com.zsc.qc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +12,13 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao userDao;
+    private UserMapper userMapper;
 
 
 
 
     public List<User> getUser(){
-        return userDao.getUser();
+        return userMapper.getUser();
     }
 
 
