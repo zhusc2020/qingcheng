@@ -1,4 +1,4 @@
-package com.zsc.qc.Config;
+package com.zsc.qc.config;
 
 import com.zsc.qc.utils.Result;
 import org.springframework.context.annotation.Configuration;
@@ -35,7 +35,7 @@ public class GlobalReturnConfig {
             if (body instanceof Result) {
                 return body;
             }
-            return new Result("success",body);
+            return new Result(100,"成功",body);
         }
     }
 
