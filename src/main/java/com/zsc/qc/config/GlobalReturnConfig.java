@@ -1,5 +1,6 @@
 package com.zsc.qc.config;
 
+import com.zsc.qc.constant.SystemEnum;
 import com.zsc.qc.utils.Result;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.MethodParameter;
@@ -35,7 +36,7 @@ public class GlobalReturnConfig {
             if (body instanceof Result) {
                 return body;
             }
-            return new Result(100,"成功",body);
+            return new Result(SystemEnum.RESP_STATUS_INTERNAL_SUCCESS.getCode(),SystemEnum.RESP_STATUS_INTERNAL_SUCCESS.getMsg(),body);
         }
     }
 
