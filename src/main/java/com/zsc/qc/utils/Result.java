@@ -17,7 +17,7 @@ public class Result<T>{
     //返回值唯一ID
     private String resultId = UUID.randomUUID().toString().replace("-", "");
     // 接口调用状态码
-    private Integer code;
+    private int code;
     // 需要传递的信息，例如错误信息
     private String msg="";
     // 需要传递的数据
@@ -39,6 +39,35 @@ public class Result<T>{
     }
 
 
+    public String getResultId() {
+        return resultId;
+    }
 
+    public void setResultId(String resultId) {
+        this.resultId = resultId;
+    }
 
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
 }

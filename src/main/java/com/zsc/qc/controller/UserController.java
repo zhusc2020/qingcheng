@@ -2,7 +2,6 @@ package com.zsc.qc.controller;
 
 import com.zsc.qc.entity.User;
 import com.zsc.qc.service.UserService;
-import com.zsc.qc.utils.CustomizeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +19,43 @@ public class UserController {
 
     @GetMapping("/getUser")
     public List<User> getUser(){
-        System.out.print("");
         return userService.getUser();
     }
 
-    @GetMapping("/getUserD")
-    public List<User> getUserD(){
-        throw new CustomizeException(1,"'11111");
+    @GetMapping("/getUserByName")
+    public User getUserByName(String userName){
+        return userService.getUserByName(userName);
     }
+
+    @GetMapping("/getUserById")
+    public User getUserById(Integer userId){
+        return userService.getUserById(userId);
+    }
+
+
+
+    @GetMapping("/checkUserName")
+    public Boolean checkUserName(String userName){
+        return userService.checkUserName(userName);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

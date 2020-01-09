@@ -11,7 +11,7 @@ import com.zsc.qc.constant.SystemEnum;
  */
 public class CustomizeException extends RuntimeException{
 
-    private int statusCode = SystemEnum.RESP_STATUS_INTERNAL_ERROR.getCode();
+    private int statusCode = SystemEnum.SYS_STATUS_INTERNAL_ERROR.getCode();
 
     public CustomizeException(int statusCode,String message) {
         super(message);

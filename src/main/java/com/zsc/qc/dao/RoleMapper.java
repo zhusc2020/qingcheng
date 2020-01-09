@@ -1,7 +1,11 @@
 package com.zsc.qc.dao;
 
 import com.zsc.qc.entity.Role;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface RoleMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +18,8 @@ public interface RoleMapper {
     int updateByPrimaryKeySelective(Role record);
 
     int updateByPrimaryKey(Role record);
+
+    //根据用户ID获取角色列表
+    List<Role> getRoleListByUserId(Integer userId);
+
 }

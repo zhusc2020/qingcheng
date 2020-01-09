@@ -3,17 +3,20 @@
 <mapper namespace="com.zsc.qc.dao.RoleMapper" >
   <resultMap id="BaseResultMap" type="com.zsc.qc.entity.Role" >
     <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="role_code" property="roleCode" jdbcType="VARCHAR" />
     <result column="role_name" property="roleName" jdbcType="VARCHAR" />
     <result column="parent_id" property="parentId" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+    <result column="createUserName" property="createUserName" jdbcType="INTEGER" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
     <result column="modify_user_id" property="modifyUserId" jdbcType="INTEGER" />
+    <result column="modifyUserName" property="modifyUserName" jdbcType="INTEGER" />
     <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, role_name, parent_id, create_time, create_user_id, modify_time, modify_user_id, 
+    id, role_code,role_name, parent_id, create_time, create_user_id, modify_time, modify_user_id,
     description, state
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -22,25 +25,48 @@
     from role
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="getRoleListByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        SELECT
+            r.id,
+            r.role_code,
+            r.role_name,
+            r.parent_id,
+            r.create_time,
+            r.create_user_id,
+            u.user_name AS createUserName,
+            r.modify_time,
+            r.modify_user_id,
+            uu.user_name AS modifyUserName,
+            r.description,
+            r.state
+        FROM
+            user_role ur
+            LEFT JOIN role r ON ur.role_id = r.id  AND r.state = 1
+            LEFT JOIN user u ON r.create_user_id = u.id
+            LEFT JOIN user uu ON r.modify_user_id = uu.id
+        WHERE
+        ur.user_id =  #{userId,jdbcType=INTEGER}
+  </select>
+
+
+
+
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from role
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zsc.qc.entity.Role" >
-    insert into role (id, role_name, parent_id, 
-      create_time, create_user_id, modify_time, 
-      modify_user_id, description, state
-      )
-    values (#{id,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, 
-      #{modifyUserId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}
-      )
-  </insert>
+
   <insert id="insertSelective" parameterType="com.zsc.qc.entity.Role" >
     insert into role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
+      </if>
+      <if test="roleCode != null" >
+        role_code,
       </if>
       <if test="roleName != null" >
         role_name,
@@ -71,6 +97,9 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="roleCode != null" >
+        #{roleCode,jdbcType=VARCHAR},
+      </if>
       <if test="roleName != null" >
         #{roleName,jdbcType=VARCHAR},
       </if>
@@ -93,13 +122,16 @@
         #{description,jdbcType=VARCHAR},
       </if>
       <if test="state != null" >
-        #{state,jdbcType=VARCHAR},
+        #{state,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.zsc.qc.entity.Role" >
     update role
     <set >
+      <if test="roleCode != null" >
+        role_code = #{roleCode,jdbcType=VARCHAR},
+      </if>
       <if test="roleName != null" >
         role_name = #{roleName,jdbcType=VARCHAR},
       </if>
@@ -122,21 +154,22 @@
         description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="state != null" >
-        state = #{state,jdbcType=VARCHAR},
+        state = #{state,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zsc.qc.entity.Role" >
-    update role
-    set role_name = #{roleName,jdbcType=VARCHAR},
+    update role set
+      role_code = #{roleCode,jdbcType=VARCHAR},
+      role_name = #{roleName,jdbcType=VARCHAR},
       parent_id = #{parentId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user_id = #{createUserId,jdbcType=INTEGER},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       modify_user_id = #{modifyUserId,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR},
-      state = #{state,jdbcType=VARCHAR}
+      state = #{state,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

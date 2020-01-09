@@ -6,16 +6,76 @@
         <result column="id" property="id" jdbcType="INTEGER" />
         <result column="user_name"  property="userName" jdbcType="VARCHAR"/>
         <result column="password"  property="password" jdbcType="VARCHAR"/>
-        <result column="role_id"  property="roleId" jdbcType="INTEGER"/>
-        <result column="data_id"  property="dataId" jdbcType="INTEGER"/>
         <result column="mobile"  property="mobile" jdbcType="VARCHAR"/>
         <result column="email"  property="email" jdbcType="VARCHAR"/>
         <result column="remark"  property="remark" jdbcType="VARCHAR"/>
         <result column="state"  property="state" jdbcType="INTEGER"/>
     </resultMap>
 
+    <sql id="Base_Column_List" >
+        id, user_name, password, mobile, email,remark, state
+    </sql>
+
+
     <select id="getUser" resultMap="UserResultMap">
-        SELECT * FROM user WHERE state = '0'
+        SELECT  <include refid="Base_Column_List" />  FROM user
     </select>
+    <select id="getUserByName" resultMap="UserResultMap"  parameterType="java.lang.String">
+        SELECT <include refid="Base_Column_List" />  FROM user WHERE user_name =  #{userName,jdbcType=VARCHAR}
+    </select>
+    <select id="getUserById" resultMap="UserResultMap"  parameterType="java.lang.Integer">
+        SELECT <include refid="Base_Column_List" />  FROM user WHERE id =  #{userId,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insertUser" parameterType="com.zsc.qc.entity.User" useGeneratedKeys="true" keyProperty="id">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+                user_name,
+            <if test="password != null" >
+                password,
+            </if>
+            <if test="mobile != null" >
+                mobile,
+            </if>
+            <if test="email != null" >
+                email,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+                #{userName,jdbcType=VARCHAR},
+            <if test="password != null" >
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null" >
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null" >
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </mapper>

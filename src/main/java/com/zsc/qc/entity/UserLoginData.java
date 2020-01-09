@@ -5,6 +5,8 @@ import java.util.Date;
 public class UserLoginData {
     private Integer id;
 
+    private Integer userId;
+
     private Date loginTime;
 
     private String loginRegion;
@@ -17,6 +19,14 @@ public class UserLoginData {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Date getLoginTime() {
@@ -41,5 +51,16 @@ public class UserLoginData {
 
     public void setLoginIp(String loginIp) {
         this.loginIp = loginIp == null ? null : loginIp.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "UserLoginData{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", loginTime=" + loginTime +
+                ", loginRegion='" + loginRegion + '\'' +
+                ", loginIp='" + loginIp + '\'' +
+                '}';
     }
 }

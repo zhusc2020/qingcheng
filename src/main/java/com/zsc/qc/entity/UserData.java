@@ -1,14 +1,23 @@
 package com.zsc.qc.entity;
 
+
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class UserData {
     private Integer id;
 
+    private Integer userId;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 
     private Integer createUserId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date modifyTime;
 
     private Integer modifyUserId;
@@ -19,6 +28,7 @@ public class UserData {
 
     private Integer sex;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date birthday;
 
     private String region;
@@ -31,6 +41,14 @@ public class UserData {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Date getCreateTime() {
@@ -111,5 +129,23 @@ public class UserData {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "UserData{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", createTime=" + createTime +
+                ", createUserId=" + createUserId +
+                ", modifyTime=" + modifyTime +
+                ", modifyUserId=" + modifyUserId +
+                ", userNickName='" + userNickName + '\'' +
+                ", loginCount='" + loginCount + '\'' +
+                ", sex=" + sex +
+                ", birthday=" + birthday +
+                ", region='" + region + '\'' +
+                ", remark='" + remark + '\'' +
+                '}';
     }
 }

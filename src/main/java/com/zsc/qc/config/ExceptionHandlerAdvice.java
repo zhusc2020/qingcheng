@@ -3,6 +3,7 @@ package com.zsc.qc.config;
 import com.zsc.qc.constant.SystemEnum;
 import com.zsc.qc.utils.Result;
 import com.zsc.qc.utils.CustomizeException;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,7 +24,7 @@ public class ExceptionHandlerAdvice {
     @ExceptionHandler(Exception.class)
     public Result handleException(Exception e){
         e.printStackTrace();
-        return new Result(SystemEnum.RESP_STATUS_INTERNAL_ERROR.getCode(),e.getMessage());
+        return new Result(SystemEnum.SYS_STATUS_INTERNAL_SUCCESS.getCode(),StringUtils.isEmpty(e.getMessage())?SystemEnum.SYS_STATUS_INTERNAL_SUCCESS.getMsg():e.getMessage());
     }
 
     //自定义异常
@@ -38,8 +39,8 @@ public class ExceptionHandlerAdvice {
     public Result handleIllegalParamException(MethodArgumentNotValidException e) {
         e.printStackTrace();
         List<ObjectError> errors = e.getBindingResult().getAllErrors();
-        String message = SystemEnum.RESP_PARAM_ERROR.getMsg();
-        Integer code = SystemEnum.RESP_PARAM_ERROR.getCode();
+        String message = SystemEnum.PARAM_ERROR.getMsg();
+        Integer code = SystemEnum.PARAM_ERROR.getCode();
         if (errors.size() > 0) {
             message = errors.get(0).getDefaultMessage();
         }

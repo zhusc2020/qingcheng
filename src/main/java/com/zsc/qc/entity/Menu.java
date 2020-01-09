@@ -1,5 +1,7 @@
 package com.zsc.qc.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Menu {
@@ -13,10 +15,12 @@ public class Menu {
 
     private Integer createUserId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 
     private Integer modifyUserId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date modifyTime;
 
     public Integer getId() {
@@ -81,5 +85,19 @@ public class Menu {
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "id=" + id +
+                ", menuName='" + menuName + '\'' +
+                ", menuCode='" + menuCode + '\'' +
+                ", pid=" + pid +
+                ", createUserId=" + createUserId +
+                ", createTime=" + createTime +
+                ", modifyUserId=" + modifyUserId +
+                ", modifyTime=" + modifyTime +
+                '}';
     }
 }

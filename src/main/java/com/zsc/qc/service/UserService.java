@@ -8,4 +8,15 @@ public interface UserService {
 
     List<User> getUser();
 
+    User insertUser(User user);
+
+    User getUserByName(String userName);
+
+    User getUserById(Integer userId);
+
+    Boolean checkUserName(String userName);
+
+
+
+
 }

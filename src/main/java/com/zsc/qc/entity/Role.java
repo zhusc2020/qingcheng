@@ -1,25 +1,38 @@
 package com.zsc.qc.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Role {
     private Integer id;
 
+    private String roleCode;
+
     private String roleName;
 
     private Integer parentId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 
     private Integer createUserId;
+    private String createUserName;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date modifyTime;
 
     private Integer modifyUserId;
+    private String modifyUserName;
 
     private String description;
 
-    private String state;
+    private Integer state;
+
+
+
+
+
 
     public Integer getId() {
         return id;
@@ -85,11 +98,53 @@ public class Role {
         this.description = description == null ? null : description.trim();
     }
 
-    public String getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(String state) {
-        this.state = state == null ? null : state.trim();
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public String getCreateUserName() {
+        return createUserName;
+    }
+
+    public void setCreateUserName(String createUserName) {
+        this.createUserName = createUserName;
+    }
+
+    public String getModifyUserName() {
+        return modifyUserName;
+    }
+
+    public void setModifyUserName(String modifyUserName) {
+        this.modifyUserName = modifyUserName;
+    }
+
+    public String getRoleCode() {
+        return roleCode;
+    }
+
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", roleCode='" + roleCode + '\'' +
+                ", roleName='" + roleName + '\'' +
+                ", parentId=" + parentId +
+                ", createTime=" + createTime +
+                ", createUserId=" + createUserId +
+                ", createUserName='" + createUserName + '\'' +
+                ", modifyTime=" + modifyTime +
+                ", modifyUserId=" + modifyUserId +
+                ", modifyUserName='" + modifyUserName + '\'' +
+                ", description='" + description + '\'' +
+                ", state=" + state +
+                '}';
     }
 }

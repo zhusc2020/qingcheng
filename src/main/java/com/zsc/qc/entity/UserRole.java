@@ -1,5 +1,7 @@
 package com.zsc.qc.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class UserRole {
@@ -11,6 +13,7 @@ public class UserRole {
 
     private Integer createUserId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 
     public Integer getId() {

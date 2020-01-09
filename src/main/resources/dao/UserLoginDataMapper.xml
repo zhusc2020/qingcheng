@@ -3,12 +3,13 @@
 <mapper namespace="com.zsc.qc.dao.UserLoginDataMapper" >
   <resultMap id="BaseResultMap" type="com.zsc.qc.entity.UserLoginData" >
     <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="login_time" property="loginTime" jdbcType="TIMESTAMP" />
     <result column="login_region" property="loginRegion" jdbcType="VARCHAR" />
     <result column="login_ip" property="loginIp" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, login_time, login_region, login_ip
+    id, user_id, login_time, login_region, login_ip
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -16,21 +17,32 @@
     from user_login_data
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="getUserLoginDataListByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from user_login_data
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user_login_data
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zsc.qc.entity.UserLoginData" >
-    insert into user_login_data (id, login_time, login_region, 
-      login_ip)
-    values (#{id,jdbcType=INTEGER}, #{loginTime,jdbcType=TIMESTAMP}, #{loginRegion,jdbcType=VARCHAR}, 
-      #{loginIp,jdbcType=VARCHAR})
+    insert into user_login_data (id, user_id, login_time, 
+      login_region, login_ip)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{loginTime,jdbcType=TIMESTAMP}, 
+      #{loginRegion,jdbcType=VARCHAR}, #{loginIp,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zsc.qc.entity.UserLoginData" >
     insert into user_login_data
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
+      </if>
+      <if test="userId != null" >
+        user_id,
       </if>
       <if test="loginTime != null" >
         login_time,
@@ -46,6 +58,9 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
       <if test="loginTime != null" >
         #{loginTime,jdbcType=TIMESTAMP},
       </if>
@@ -60,6 +75,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.zsc.qc.entity.UserLoginData" >
     update user_login_data
     <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
       <if test="loginTime != null" >
         login_time = #{loginTime,jdbcType=TIMESTAMP},
       </if>
@@ -74,7 +92,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zsc.qc.entity.UserLoginData" >
     update user_login_data
-    set login_time = #{loginTime,jdbcType=TIMESTAMP},
+    set user_id = #{userId,jdbcType=INTEGER},
+      login_time = #{loginTime,jdbcType=TIMESTAMP},
       login_region = #{loginRegion,jdbcType=VARCHAR},
       login_ip = #{loginIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

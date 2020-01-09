@@ -36,7 +36,7 @@ public class GlobalReturnConfig {
             if (body instanceof Result) {
                 return body;
             }
-            return new Result(SystemEnum.RESP_STATUS_INTERNAL_SUCCESS.getCode(),SystemEnum.RESP_STATUS_INTERNAL_SUCCESS.getMsg(),body);
+            return new Result(SystemEnum.SYS_STATUS_INTERNAL_SUCCESS.getCode(),SystemEnum.SYS_STATUS_INTERNAL_SUCCESS.getMsg(),body);
         }
     }
 

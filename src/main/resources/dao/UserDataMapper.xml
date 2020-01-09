@@ -3,6 +3,7 @@
 <mapper namespace="com.zsc.qc.dao.UserDataMapper" >
   <resultMap id="BaseResultMap" type="com.zsc.qc.entity.UserData" >
     <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
@@ -15,8 +16,8 @@
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, create_time, create_user_id, modify_time, modify_user_id, user_nick_name, login_count, 
-    sex, birthday, region, remark
+    id, user_id, create_time, create_user_id, modify_time, modify_user_id, user_nick_name, 
+    login_count, sex, birthday, region, remark
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,25 +25,27 @@
     from user_data
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="getUserDataByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from user_data
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user_data
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zsc.qc.entity.UserData" >
-    insert into user_data (id, create_time, create_user_id, 
-      modify_time, modify_user_id, user_nick_name, 
-      login_count, sex, birthday, 
-      region, remark)
-    values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=INTEGER}, 
-      #{modifyTime,jdbcType=TIMESTAMP}, #{modifyUserId,jdbcType=INTEGER}, #{userNickName,jdbcType=VARCHAR}, 
-      #{loginCount,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{birthday,jdbcType=TIMESTAMP}, 
-      #{region,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.zsc.qc.entity.UserData" >
+
+  <insert id="insert" parameterType="com.zsc.qc.entity.UserData" useGeneratedKeys="true" keyProperty="id" >
     insert into user_data
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
+      </if>
+      <if test="userId != null" >
+        user_id,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -79,6 +82,9 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -114,6 +120,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.zsc.qc.entity.UserData" >
     update user_data
     <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -149,7 +158,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zsc.qc.entity.UserData" >
     update user_data
-    set create_time = #{createTime,jdbcType=TIMESTAMP},
+    set user_id = #{userId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       create_user_id = #{createUserId,jdbcType=INTEGER},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       modify_user_id = #{modifyUserId,jdbcType=INTEGER},
