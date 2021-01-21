@@ -46,10 +46,10 @@ public class UserServiceImpl implements UserService {
      */
     @Transactional
     public User insertUser(User user){
+        if(checkUserName(user.getUserName())){
+            throw  new CustomizeException(SystemEnum.CHECK_USER_NAME_EXIST.getCode(),SystemEnum.CHECK_USER_NAME_EXIST.getMsg());
+        }
         try {
-            if(checkUserName(user.getUserName())){
-                throw  new CustomizeException(SystemEnum.CHECK_USER_NAME_EXIST.getCode(),SystemEnum.CHECK_USER_NAME_EXIST.getMsg());
-            }
             UserData userData = user.getUserData();
             userMapper.insertUser(user);
             userData.setUserId(user.getId());

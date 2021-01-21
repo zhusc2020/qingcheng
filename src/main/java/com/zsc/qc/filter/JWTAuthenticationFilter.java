@@ -72,7 +72,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // 按照jwt的规定，最后请求的格式应该是 `Bearer token`
         response.setHeader("token", JwtTokenUtils.TOKEN_PREFIX + token);
         try {
-            ResponseUtil.write(response,new Result(100,"登录成功"));
+            ResponseUtil.write(response,new Result(100,"登录成功",jwtUser));
         } catch (Exception e) {
             e.printStackTrace();
         }
